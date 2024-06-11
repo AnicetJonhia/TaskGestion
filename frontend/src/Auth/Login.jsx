@@ -67,7 +67,7 @@ const Login = () => {
                                   <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                               </FormGroup>
 
-                              <Button type="submit" color="danger" className="w-100">Sign in</Button>
+                              <Button type="submit" color={"primary"} className="w-100">Sign in</Button>
                           </Form>
                           <p className="text-center my-3">----- or continue with -----</p>
                           <div className="d-flex justify-content-center">

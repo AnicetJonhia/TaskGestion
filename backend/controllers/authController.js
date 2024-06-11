@@ -105,7 +105,6 @@ exports.logout = (req, res) => {
   try {
     // Vous pouvez ajouter d'autres opérations de déconnexion ici si nécessaire
     res.status(200).send('Logged out successfully')
-    console.log("Logged out successfully ");
   } catch (error) {
     console.error(error);
     res.status(500).send();

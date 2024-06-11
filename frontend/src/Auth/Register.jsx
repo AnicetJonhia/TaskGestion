@@ -96,7 +96,7 @@ const Register = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)} required />
                 </FormGroup>
 
-                <Button type="submit" color="danger" className="w-100">Sign up</Button>
+                <Button type="submit" color="primary" className="w-100">Sign up</Button>
               </Form>
               <p className="text-center my-3">----- or continue with -----</p>
               <div className="d-flex justify-content-center">

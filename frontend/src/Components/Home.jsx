@@ -1,15 +1,16 @@
 import React from 'react';
+import Sidebar from './jsx/Sidebar';
+import MainContent from './jsx/MainContent';
+import {Outlet} from "react-router-dom";
 
-import Logout from "../Auth/Logout";
-import Sidebar from './Sidebar';
 const Home = () => {
   return (
-
-          <div className={"d-flex"}>
-              <Sidebar />
-              <Logout/>
-          </div>
-
+    <div className="d-flex">
+        <Sidebar/>
+        <MainContent>
+            <Outlet />
+        </MainContent>
+    </div>
   );
 };
 
