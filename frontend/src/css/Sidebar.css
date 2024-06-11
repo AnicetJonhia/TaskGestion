@@ -120,3 +120,7 @@ body {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+
+.clicked {
+    background-color: red;
+}

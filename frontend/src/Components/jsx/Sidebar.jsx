@@ -57,7 +57,7 @@ const Sidebar = () => {
         </div>
         <ul className="sidebar-nav">
           <li className="sidebar-item">
-            <Link to="/home/dashboard" className="sidebar-link">
+            <Link to="/home/dashboard"  className="sidebar-link">
               <i  className="lni lni-home"></i>
               <span>Dashboard</span>
             </Link>

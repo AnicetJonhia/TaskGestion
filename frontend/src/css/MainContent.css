@@ -3,5 +3,7 @@
     width: 100%;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
-    background-color: #fafbfe;
+    /*background-color: #f9f9f9;*/
+    background-color: #ecebf3;
+
 }

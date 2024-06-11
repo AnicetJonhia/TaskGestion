@@ -79,7 +79,6 @@ exports.register = async (req, res) => {
       accessToken: accessToken
     });
   } catch (error) {
-    console.error(error);
     res.status(500).send();
   }
 };
@@ -94,7 +93,6 @@ exports.login = async (req, res) => {
 
     const accessToken = jwt.sign({ username: user.name }, process.env.JWT_SECRET);
     res.json({ accessToken });
-    console.log("accesToken",accessToken)
   } catch (error) {
     console.error(error);
     res.status(500).send();
