@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';  // Import Font Awesome CSS
+import 'mdb-ui-kit/css/mdb.min.css';  // Import MDB UI Kit CSS
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './App.css';
