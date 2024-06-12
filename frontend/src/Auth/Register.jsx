@@ -26,6 +26,9 @@ const Register = () => {
     if (password!== confirmPassword) {
       setError('Passwords do not match');
       toggleModal();
+      setTimeout(() =>{
+        setIsOpen(false)
+      },1000)
       return;
     }
     try {
