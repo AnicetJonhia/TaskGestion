@@ -11,7 +11,7 @@ const ProjectSummary = () => (
         <SectionHeader title="Project Summary" />
         <Row>
             <Col>
-                <ProjectCard color="primary" imgSrc={TODO} count="17" title="TODO Project" />
+                <ProjectCard  color="primary" imgSrc={TODO} count="17" title="TODO Project" />
             </Col>
             <Col>
                 <ProjectCard color="info" imgSrc={INPROGRESS} count="04" title="In Progress Project" />
