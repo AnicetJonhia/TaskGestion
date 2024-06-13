@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
+import { Box } from '@mui/material';
 import SectionHeader from './SectionHeader';
-import TabsHeader from './Tasks/TabsHeader';
-import TabsContent from "./Tasks/TabsContent";
-import Create from '../../Components/utils/Create'
+import Create from '../../Components/utils/Create';
+import TabsHeader    from "./Tasks/TabsHeader";
+import TabsContent from './Tasks/TabsContent';
 
 const Tasks = () => {
     const [activeTab, setActiveTab] = useState('all');
 
-    const toggleTab = (tab) => {
-        if (activeTab !== tab) setActiveTab(tab);
+    const handleChange = (event, newValue) => {
+        setActiveTab(newValue);
     };
 
     return (
         <>
             <SectionHeader title="My tasks" />
-            <Row className="justify-content-between mb-3">
+            <Row>
                 <Col>
-                    <TabsHeader activeTab={activeTab} toggleTab={toggleTab} />
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <TabsHeader activeTab={activeTab} handleChange={handleChange} />
+                    </Box>
                 </Col>
                 <Col className="text-end">
-                    <Create/>
+                    <Create />
                 </Col>
+
             </Row>
-            <TabsContent activeTab={activeTab} />
+            <Row>
+                <TabsContent activeTab={activeTab}/>
+            </Row>
         </>
     );
-}
+};
 
 export default Tasks;

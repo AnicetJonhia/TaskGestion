@@ -1,44 +1,23 @@
 import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import classnames from 'classnames';
+import { Tab } from '@mui/material';
+import { TabContext, TabList } from '@mui/lab';
 
-const TabsHeader = ({ activeTab, toggleTab }) => {
+const TabsHeader = ({ activeTab, handleChange }) => {
     return (
-        <Nav tabs>
-            <NavItem>
-                <NavLink
-                    className={classnames("justify-content-center text-primary text-body-tertiary fw-bolder", { active: activeTab === 'all' })}
-                    onClick={() => { toggleTab('all'); }}
-                >
-                    All Tasks
-                </NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink
-                    className={classnames("justify-content-center text-primary text-body-tertiary fw-bolder", { active: activeTab === 'todo' })}
-                    onClick={() => { toggleTab('todo'); }}
-                >
-                    TODO
-                </NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink
-                    className={classnames("justify-content-center text-primary text-body-tertiary fw-bolder", { active: activeTab === 'inprogress' })}
-                    onClick={() => { toggleTab('inprogress'); }}
-                >
-                    In Progress
-                </NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink
-                    className={classnames("justify-content-center text-primary text-body-tertiary fw-bolder", { active: activeTab === 'completed' })}
-                    onClick={() => { toggleTab('completed'); }}
-                >
-                    Completed
-                </NavLink>
-            </NavItem>
-        </Nav>
+        <TabContext value={activeTab}>
+            <TabList
+                onChange={handleChange}
+                aria-label="Tasks tabs"
+                variant="scrollable"
+                scrollButtons="auto"
+            >
+                <Tab label="All Tasks" value="all" />
+                <Tab label="TODO" value="todo" />
+                <Tab label="In Progress" value="inprogress" />
+                <Tab label="Completed" value="completed" />
+            </TabList>
+        </TabContext>
     );
-}
+};
 
 export default TabsHeader;

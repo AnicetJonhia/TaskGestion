@@ -1,23 +1,39 @@
 import React from 'react';
-import { TabContent, TabPane } from 'reactstrap';
+import { TabPanel } from '@mui/lab';
+import TabContext from '@mui/lab/TabContext';
 
+import AllTasks from './TabsContent/AllTasks';
+import TodoTasks from './TabsContent/TodoTasks';
+import InProgressTasks from './TabsContent/InProgressTasks';
+import CompletedTasks from './TabsContent/CompletedTasks';
+
+
+const project = {
+    name: 'Staak Project',
+    category: 'Web',
+    progress: 45,
+    avatar: 'S',
+    avatarColor: 'lightgreen'
+};
 const TabsContent = ({ activeTab }) => {
     return (
-        <TabContent activeTab={activeTab}>
-            <TabPane tabId="all" style={{ backgroundColor: 'transparent' }}>
-                <p>All tasks content...</p>
-            </TabPane>
-            <TabPane tabId="todo" style={{ backgroundColor: 'transparent' }}>
-                <p>TODO tasks content...</p>
-            </TabPane>
-            <TabPane tabId="inprogress" style={{ backgroundColor: 'transparent' }}>
-                <p>In Progress tasks content...</p>
-            </TabPane>
-            <TabPane tabId="completed" style={{ backgroundColor: 'transparent' }}>
-                <p>Completed tasks content...</p>
-            </TabPane>
-        </TabContent>
+        <>
+            <TabContext value={activeTab}>
+                <TabPanel value="all">
+                    <AllTasks project={project}/>
+                </TabPanel>
+                <TabPanel value="todo">
+                    <TodoTasks />
+                </TabPanel>
+                <TabPanel value="inprogress">
+                    <InProgressTasks />
+                </TabPanel>
+                <TabPanel value="completed">
+                    <CompletedTasks />
+                </TabPanel>
+            </TabContext>
+        </>
     );
-}
+};
 
 export default TabsContent;
