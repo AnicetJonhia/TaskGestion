@@ -6,7 +6,7 @@ const TaskSchema = new mongoose.Schema({
   category: String,
   priority: Number,
   dueDate: Date,
-  status: { type: String, enum: ['todo', 'inprogress', 'completed'], default: 'todo', required: true },
+  status: { type: String, enum: ['Todo', 'In progress', 'Completed'], default: 'Todo', required: true },
   completed: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }, // Ajoutez ce champ
   updatedAt: { type: Date, default: Date.now }, // Et ce champ

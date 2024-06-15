@@ -22,6 +22,23 @@ exports.getTasksByStatus = async (req, res) => {
       }
 }
 
+// get tasks number by status
+exports.getTasksCount = async (req, res) => {
+    try {
+        const todoCount = await Task.countDocuments({ status: 'Todo' });
+        const inProgressCount = await Task.countDocuments({ status: 'In progress' });
+        const completedCount = await Task.countDocuments({ status: 'Completed' });
+
+        res.json({
+            todoCount: todoCount,
+            inProgressCount: inProgressCount,
+            completedCount: completedCount
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 // Create task
 exports.createTask = async (req, res) => {
     const task = new Task(req.body);

@@ -18,7 +18,7 @@ const Tasks = () => {
             <SectionHeader title="My tasks" />
             <Row>
                 <Col>
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Box  sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabsHeader activeTab={activeTab} handleChange={handleChange} />
                     </Box>
                 </Col>
@@ -27,8 +27,9 @@ const Tasks = () => {
                 </Col>
 
             </Row>
-            <Row>
+            <Row >
                 <TabsContent activeTab={activeTab}/>
+
             </Row>
         </>
     );
