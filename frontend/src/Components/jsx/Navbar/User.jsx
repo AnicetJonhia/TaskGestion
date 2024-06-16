@@ -8,7 +8,7 @@ const User = () => {
                 <a
                     data-mdb-dropdown-init
                     className="nav-link dropdown-toggle d-flex align-items-center"
-                    href="#"
+                    href="#user-profile"
                     id="navbarDropdownMenuLink"
                     role="button"
                     aria-expanded="false"
@@ -18,14 +18,15 @@ const User = () => {
                         className="rounded-circle"
                         height="22"
                         loading="lazy"
+                        alt={"avatar-profile"}
                     />
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <li>
-                        <a className="dropdown-item" href="#">My profile</a>
+                        <a className="dropdown-item" href="#my-profile">My profile</a>
                     </li>
                     <li>
-                        <a className="dropdown-item" href="#">Help</a>
+                        <a className="dropdown-item" href="#help">Help</a>
                     </li>
 
                 </ul>

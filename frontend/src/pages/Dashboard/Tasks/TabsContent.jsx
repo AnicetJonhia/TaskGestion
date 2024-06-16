@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TabPanel } from '@mui/lab';
 import TabContext from '@mui/lab/TabContext';
-
+import axios from 'axios';
 import AllTasks from './TabsContent/AllTasks';
 
 // Function to get the first letter of the project name
@@ -23,27 +23,36 @@ const getAvatarColor = (status) => {
     }
 };
 
-const TabsContent = ({ activeTab }) => {
+const TabsContent = ({ activeTab, accessToken }) => {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/tasks/get-all-tasks');
-                const data = await response.json();
-                setTasks(data);
+                const response = await axios.get('http://localhost:5000/api/tasks/get-all-tasks', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
+                setTasks(response.data); // Utilisation de response.data directement
                 setLoading(false);
+                console.log("Data :" ,response.data);
             } catch (error) {
                 console.error('Error fetching tasks:', error);
                 setLoading(false);
+                // Gestion des erreurs d'authentification
+                if (error.response && error.response.status === 401) {
+                    // Redirection vers la page de connexion ou affichage d'un message d'erreur
+                }
             }
         };
 
         fetchTasks();
-    }, []);
+    }, [accessToken]); // Rechargement des tâches lorsque le JWT est mis à jour
 
     const getProjectsWithAvatars = (tasks) => {
+        if (!tasks) return []; // Vérifie si tasks est défini
         return tasks.map(task => ({
             ...task,
             avatar: getAvatarLetter(task.title),
@@ -55,7 +64,7 @@ const TabsContent = ({ activeTab }) => {
 
     return (
         <>
-            <TabContext  value={activeTab}>
+            <TabContext value={activeTab}>
                 <TabPanel value="all">
                     {loading ? (
                         <p>Loading...</p>
