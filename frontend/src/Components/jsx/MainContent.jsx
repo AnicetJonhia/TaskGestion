@@ -4,7 +4,7 @@ const MainContent = ({children}) => {
     return(
         <div className="main">
             <Navbar/>
-            <div className="p-3">
+            <div className="p-3 overflow-auto">
                 {children}
             </div>
         </div>

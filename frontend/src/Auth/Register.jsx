@@ -65,7 +65,7 @@ const Register = () => {
   };
 
   return (
-      <div className="container-xxl justify-content-center h-100">
+      <div className="container-xxl  justify-content-center h-100" >
         <Row className="align-items-center d-flex m-xxl-5 h-100">
           <Col className="d-none d-md-block">
             <img
@@ -75,7 +75,7 @@ const Register = () => {
             />
           </Col>
           <Col className="lg-5">
-            <Card className="shadow-sm p-4 h-auto ">
+            <Card className="mt-5 shadow-xxl p-4 h-auto " style={{ boxShadow: '0 0 5rem rgba(0.1, 0.1, 0.1, 0.3)'}}>
               <CardBody>
                 <CardTitle tag="h1" className="text-center">
                   <img

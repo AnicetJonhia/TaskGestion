@@ -4,8 +4,8 @@ import ProjectSummary from"./Dashboard/ProjectSummary";
 import Tasks from"./Dashboard/Tasks";
 const Dashboard = () => {
     return (
-        <Container className={"container-fluid"}>
-            <Col>
+        <Container className={"container-fluid vh-100 d-flex flex-column"}>
+            <Col className="flex-grow-1 overflow-auto">
                 <Row className="justify-content-center text-primary mb-2 ">
                     <h1>Dashboard</h1>
                     <hr/>
@@ -13,7 +13,7 @@ const Dashboard = () => {
                 <Row className={"mb-3"}>
                     <ProjectSummary/>
                 </Row>
-                <Row>
+                <Row className={"mb-5"}>
                     <Tasks/>
                 </Row>
             </Col>
