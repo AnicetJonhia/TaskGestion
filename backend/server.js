@@ -19,9 +19,12 @@ const io = socketIo(server);
 
 io.on('connection', (socket) => {
     console.log('An user connected');
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
 })
 module.exports.io = io
-
+app.set('io',io);
 
 // Connexion à MongoDB
 connectDB();
@@ -29,6 +32,8 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+
 
 // Routes
 app.use('/api/auth', authRoutes);

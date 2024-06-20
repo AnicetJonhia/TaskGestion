@@ -1,37 +1,18 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
 
-const authenticate = async (req, res, next) => {
-    const authHeader = req.header('Authorization');
-    if (!authHeader) {
-
-        return res.status(401).send({ error: 'Authorization header missing.' });
-    }
-
-    const token = authHeader.replace('Bearer ', '');
-    if (!token) {
-        console.log('Token missing');
-        return res.status(401).send({ error: 'Please authenticate.' });
-    }
-
+module.exports = (req, res, next) => {
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('Decoded JWT:', decoded); // Log pour vérifier le contenu du token
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = { userId: decodedToken.userId }; // Ajout des informations utilisateur à la requête
 
-        // Rechercher l'utilisateur par nom d'utilisateur
-        const user = await User.findOne({ name: decoded.username });
-        if (!user) {
-            console.log('User not found');
-            return res.status(401).send({ error: 'User not found.' });
+        if (req.body.userId && req.body.userId !== decodedToken.userId) {
+            return res.status(400).json({ msg: 'User Id is invalid' });
+        } else {
+            next();
         }
-
-        req.user = user; // Définir l'utilisateur complet dans req.user
-        console.log('Authenticated user:', req.user); // Log pour vérifier l'utilisateur authentifié
-        next();
-    } catch (e) {
-        console.log('JWT verification failed:', e.message);
-        res.status(401).send({ error: 'Please authenticate.' });
+    } catch (error) {
+        console.error("Middleware auth error:", error);
+        res.status(401).json({ error: error.message || 'Unauthorized Token' });
     }
 };
-
-module.exports = authenticate;

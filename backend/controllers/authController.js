@@ -35,10 +35,11 @@ exports.register = async (req, res) => {
     await user.save();
 
     // Génère un jeton d'accès JWT
-    const accessToken = jwt.sign({ username: user.name }, process.env.JWT_SECRET);
+    const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {expiresIn: '24h'});
 
     // Envoyez une réponse unique contenant le message de succès et le jeton d'accès
     res.status(201).json({
+      userId : user._id,
       msg: 'User registered successfully',
       accessToken: accessToken
     });
@@ -55,8 +56,8 @@ exports.login = async (req, res) => {
     const passwordMatch = await bcrypt.compare(req.body.password, user.password);
     if (!passwordMatch) return res.status(400).send('Not Allowed');
 
-    const accessToken = jwt.sign({ username: user.name }, process.env.JWT_SECRET);
-    res.json({ accessToken });
+    const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {expiresIn: '24h'});
+    res.json({userId: user._id , accessToken });
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: error.message });

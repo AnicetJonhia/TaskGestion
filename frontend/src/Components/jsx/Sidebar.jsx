@@ -21,24 +21,22 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/logout');
+      await axios.post('http://localhost:5000/api/auth/logout', null);
       localStorage.removeItem('token');
-      setSuccess("Logout successful");
+      setSuccess('Logout successful');
       toggleModal();
       setTimeout(() => {
         navigate('/login');
         setIsOpen(false);
-      }, 1000)
+      }, 1000);
     } catch (error) {
-       if(error.response && error.response.data) {
-         setError(error.response.data || 'Login failed');
-       }
-       else {
-         setError('Login failed');
-       }
+      if (error.response && error.response.data) {
+        setError(error.response.data.message || 'Logout failed');
+      } else {
+        setError('Logout failed');
+      }
     }
   };
-
   return (
       <>
       <aside id="sidebar" className={isExpanded ? '' : 'expand'}>

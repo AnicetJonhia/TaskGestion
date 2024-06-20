@@ -13,21 +13,21 @@ const ProjectSummary = ({ accessToken }) => {
     useEffect(() => {
         const fetchTasksCounts = async () => {
             try {
+                const token = localStorage.getItem('token');
                 const response = await axios.get('http://localhost:5000/api/tasks/get-tasks-count', {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
+                    headers : {
+                        Authorization : `Bearer ${token}`,
                     }
                 });
                 setCounts(response.data);
+                console.log("task-count: ", response.data)
             } catch (error) {
                 console.error('Error fetching tasks counts', error);
             }
         };
+        fetchTasksCounts();
 
-        if (accessToken) {
-            fetchTasksCounts();
-        }
-    }, [accessToken]);
+    }, []);
 
     return (
         <>
