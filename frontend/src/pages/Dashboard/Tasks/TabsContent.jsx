@@ -3,7 +3,9 @@ import { TabPanel } from '@mui/lab';
 import TabContext from '@mui/lab/TabContext';
 import axios from 'axios';
 import AllTasks from './TabsContent/AllTasks';
-
+// import socketIOClient from 'socket.io-client';
+//
+// const ENDPOINT = 'http://localhost:5000';
 // Function to get the first letter of the project name
 const getAvatarLetter = (title) => {
     return title ? title.charAt(0) : '';
@@ -23,36 +25,41 @@ const getAvatarColor = (status) => {
     }
 };
 
-const TabsContent = ({ activeTab, accessToken }) => {
-    const [tasks, setTasks] = useState([]);
+const TabsContent = ({ activeTab }) => {
+    const [tasks, setTasks] = useState([]); // Initialize as an empty array
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null); // State to handle errors
 
     useEffect(() => {
         const fetchTasks = async () => {
             try {
+                const token = localStorage.getItem('token');
                 const response = await axios.get('http://localhost:5000/api/tasks/get-all-tasks', {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
+                    headers : {
+                        Authorization : `Bearer ${token}`,
                     }
                 });
-                setTasks(response.data); // Utilisation de response.data directement
+                if (Array.isArray(response.data.tasks)) {
+                    setTasks(response.data.tasks); // Access tasks array from response.data.tasks
+                } else {
+                    setTasks([]); // Set to an empty array if not
+                }
                 setLoading(false);
-                console.log("Data :" ,response.data);
+                console.log("Data:", response.data.tasks);
             } catch (error) {
                 console.error('Error fetching tasks:', error);
+                setError(error.message); // Set error state with error message
                 setLoading(false);
-                // Gestion des erreurs d'authentification
-                if (error.response && error.response.status === 401) {
-                    // Redirection vers la page de connexion ou affichage d'un message d'erreur
-                }
+                // Handle errors as needed
             }
         };
 
         fetchTasks();
-    }, [accessToken]); // Rechargement des tâches lorsque le JWT est mis à jour
+
+
+    }, []); // Only run once when the component mounts
 
     const getProjectsWithAvatars = (tasks) => {
-        if (!tasks) return []; // Vérifie si tasks est défini
         return tasks.map(task => ({
             ...task,
             avatar: getAvatarLetter(task.title),
@@ -68,15 +75,20 @@ const TabsContent = ({ activeTab, accessToken }) => {
                 <TabPanel value="all">
                     {loading ? (
                         <p>Loading...</p>
+                    ) : error ? (
+                        <p>Error: {error}</p>
                     ) : (
-                        projectsWithAvatars.map((project) => (
-                            <AllTasks key={project._id} project={project} />
-                        ))
+                        projectsWithAvatars.map((project) => {
+                            console.log('Project:', project); // Vérifiez la structure de project
+                            return <AllTasks key={project._id} project={project} />;
+                        })
                     )}
                 </TabPanel>
                 <TabPanel value="todo">
                     {loading ? (
                         <p>Loading...</p>
+                    ) : error ? (
+                        <p>Error: {error}</p>
                     ) : (
                         projectsWithAvatars
                             .filter((project) => project.status === 'Todo')
@@ -88,6 +100,8 @@ const TabsContent = ({ activeTab, accessToken }) => {
                 <TabPanel value="inprogress">
                     {loading ? (
                         <p>Loading...</p>
+                    ) : error ? (
+                        <p>Error: {error}</p>
                     ) : (
                         projectsWithAvatars
                             .filter((project) => project.status === 'In progress')
@@ -99,6 +113,8 @@ const TabsContent = ({ activeTab, accessToken }) => {
                 <TabPanel value="completed">
                     {loading ? (
                         <p>Loading...</p>
+                    ) : error ? (
+                        <p>Error: {error}</p>
                     ) : (
                         projectsWithAvatars
                             .filter((project) => project.status === 'Completed')

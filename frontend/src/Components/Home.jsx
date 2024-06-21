@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="d-flex">
+    <div className="d-flex vh-100">
         <Sidebar/>
         <MainContent>
             <Outlet />

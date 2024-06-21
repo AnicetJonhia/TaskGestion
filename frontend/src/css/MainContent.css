@@ -5,5 +5,7 @@
     transition: all 0.35s ease-in-out;
     /*background-color: #f9f9f9;*/
     background-color: #ecebf3;
+    /*overflow-y: auto;*/
 
 }
+
