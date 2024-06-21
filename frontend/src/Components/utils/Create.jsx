@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Tooltip from '@mui/material/Tooltip';
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Row, Col, Alert } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
 import Snackbar from '@mui/material/Snackbar';
+import SnackbarContent from '@mui/material/SnackbarContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import CreateImage from '../../assets/images/Create/Create.gif';
 
@@ -31,6 +34,8 @@ const Create = () => {
         });
         setErrors({});
     };
+
+    const handleSnackbarClose = () => setSnackbarMsg(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -72,6 +77,12 @@ const Create = () => {
             setErrors(newErrors);
         }
     };
+
+    const action = (
+        <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarClose}>
+            <CloseIcon fontSize="small" />
+        </IconButton>
+    );
 
     return (
         <>
@@ -165,17 +176,23 @@ const Create = () => {
             {snackbarMsg && (
                 <Snackbar
                     anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
+                        vertical: 'top',
+                        horizontal: 'center',
                     }}
-                    open={snackbarMsg !== null}
-                    autoHideDuration={2000}
-                    onClose={() => setSnackbarMsg(null)}
+                    open={Boolean(snackbarMsg)}
+                    autoHideDuration={3000}
+                    onClose={handleSnackbarClose}
                 >
-                    <Alert onClose={() => setSnackbarMsg(null)} severity={snackbarMsg.variant}>
-                        {snackbarMsg.message}
-                    </Alert>
+                    <SnackbarContent
+                        message={snackbarMsg.message}
+                        action={action}
+                        sx={{
+                            backgroundColor: snackbarMsg.variant === 'success' ? 'green' : 'red',
+                            color: 'white',
+                        }}
+                    />
                 </Snackbar>
+
             )}
         </>
     );
