@@ -120,7 +120,7 @@ export default function Profile() {
                   name="fullname"
                   value={userInfos.fullname}
                   onChange={handleProfileFieldChange}
-                  placeholder="john Ndiaye" />
+                  placeholder="Tsiresy Milson" />
 
               </div>
             </div>
@@ -135,7 +135,7 @@ export default function Profile() {
                   name="email"
                   value={userInfos.email}
                   onChange={handleProfileFieldChange}
-                  placeholder="john@doe.com" />
+                  placeholder="tsiresymilson@gmail.com" />
 
                 <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
               </div>
