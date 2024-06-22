@@ -3,9 +3,14 @@
     width: 100%;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
-    /*background-color: #f9f9f9;*/
-    background-color: #ecebf3;
-    /*overflow-y: auto;*/
+    background-image: url('1.avif');
+    background-size: cover; /* Couvrir toute la surface du conteneur */
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
+
+
 
 }
 
+.overflow-y-auto-webkit-scrollbar::-webkit-scrollbar {
+    display: none;
+}

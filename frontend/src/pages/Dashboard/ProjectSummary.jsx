@@ -20,7 +20,7 @@ const ProjectSummary = ({ accessToken }) => {
                     }
                 });
                 setCounts(response.data);
-                console.log("task-count: ", response.data)
+
             } catch (error) {
                 console.error('Error fetching tasks counts', error);
             }

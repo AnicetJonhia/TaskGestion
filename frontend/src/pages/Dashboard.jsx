@@ -5,7 +5,7 @@ import Tasks from"./Dashboard/Tasks";
 const Dashboard = () => {
     return (
         <Container className={"container-fluid vh-100 d-flex flex-column"}>
-            <Col className="flex-grow-1 overflow-auto">
+            <Col className="flex-grow-1 overflow-y-auto overflow-y-auto-webkit-scrollbar">
                 <Row className="justify-content-center text-primary mb-2 ">
                     <h1>Dashboard</h1>
                     <hr/>
