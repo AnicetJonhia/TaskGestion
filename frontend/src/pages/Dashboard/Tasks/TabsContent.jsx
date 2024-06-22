@@ -45,7 +45,7 @@ const TabsContent = ({ activeTab }) => {
                     setTasks([]); // Set to an empty array if not
                 }
                 setLoading(false);
-                console.log("Data:", response.data.tasks);
+
             } catch (error) {
                 console.error('Error fetching tasks:', error);
                 setError(error.message); // Set error state with error message
@@ -79,7 +79,6 @@ const TabsContent = ({ activeTab }) => {
                         <p>Error: {error}</p>
                     ) : (
                         projectsWithAvatars.map((project) => {
-                            console.log('Project:', project); // Vérifiez la structure de project
                             return <AllTasks key={project._id} project={project} />;
                         })
                     )}
