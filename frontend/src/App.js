@@ -7,6 +7,9 @@ import Dashboard from"./pages/Dashboard"
 import Task from "./pages/Task";
 import Notification from "./pages/Notification";
 import Setting from "./pages/Setting";
+import profile from "./pages/profile";
+import Profile from './pages/profile';
+
 function App() {
   return (
     <Router>
@@ -20,6 +23,7 @@ function App() {
           <Route path="task" element={<Task />} />
           <Route path="notification" element={<Notification />} />
           <Route path="setting" element={<Setting />} />
+          <Route path= "profile" element= {<Profile />} />
 
         </Route>
       </Routes>
