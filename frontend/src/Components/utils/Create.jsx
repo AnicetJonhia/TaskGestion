@@ -158,15 +158,21 @@ const Create = () => {
                                 <FormGroup>
                                     <Label for="priority">Priority</Label>
                                     <Input
-                                        type="number"
+                                        type="select"
                                         id="priority"
                                         name="priority"
                                         value={formData.priority}
                                         onChange={handleChange}
                                         invalid={!!errors.priority}
-                                    />
+                                    >
+                                        <option value="">Select Priority</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </Input>
                                     {errors.priority && <p className="text-danger">{errors.priority}</p>}
                                 </FormGroup>
+
                             </Col>
                         </Row>
                         <Button color="primary" type="submit" block>Create</Button>
