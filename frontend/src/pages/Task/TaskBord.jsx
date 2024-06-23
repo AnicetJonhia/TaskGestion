@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Container, Row, Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -9,7 +9,7 @@ const ItemTypes = {
     TASK: 'TASK',
 };
 
-const TaskCard = ({ task, onDrop }) => {
+const TaskCard = ({ task }) => {
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.TASK,
         item: { type: ItemTypes.TASK, id: task.id },
@@ -30,7 +30,7 @@ const TaskCard = ({ task, onDrop }) => {
     );
 };
 
-const TaskColumn = ({ title, tasks, onDrop }) => {
+const TaskColumn = React.forwardRef(({ title, tasks, onDrop, children }, ref) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.TASK,
         drop: (item) => onDrop(item.id, title),
@@ -43,18 +43,19 @@ const TaskColumn = ({ title, tasks, onDrop }) => {
     const isActive = canDrop && isOver;
 
     return (
-        <Col md={3} className="p-2" ref={drop}>
+        <div ref={drop} className="col-md-3 p-2">
             <Card className={`p-2 ${isActive ? 'bg-light' : ''}`}>
                 <CardTitle tag="h5">{title}</CardTitle>
                 <CardBody>
                     {tasks.map((task) => (
-                        <TaskCard key={task.id} task={task} onDrop={onDrop} />
+                        <TaskCard key={task.id} task={task} />
                     ))}
                 </CardBody>
+                {children}
             </Card>
-        </Col>
+        </div>
     );
-};
+});
 
 const TaskBoard = () => {
     const [taskList, setTaskList] = useState({
@@ -66,12 +67,15 @@ const TaskBoard = () => {
 
     const handleDrop = (taskId, column) => {
         setTaskList((prevTaskList) => {
-            const updatedTaskList = {
-                ...prevTaskList,
-                [column]: prevTaskList[column].map((task) =>
-                    task.id === taskId ? { ...task, priority: getColumnPriority(column) } : task
-                ),
-            };
+            const task = Object.values(prevTaskList).flat().find(task => task.id === taskId);
+            if (!task) return prevTaskList;
+
+            const updatedTaskList = Object.fromEntries(
+                Object.entries(prevTaskList).map(([key, tasks]) => [
+                    key,
+                    key === column ? [...tasks, { ...task, priority: getColumnPriority(column) }] : tasks.filter(task => task.id !== taskId)
+                ])
+            );
 
             return updatedTaskList;
         });
