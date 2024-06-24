@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
-import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Card, CardBody, CardTitle } from 'reactstrap';
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 const TaskCard = ({ task }) => {
     const [{ isDragging }, drag] = useDrag({
@@ -11,25 +13,25 @@ const TaskCard = ({ task }) => {
         }),
     });
 
-    const getPriorityClass = (priority) => {
+    const getPriorityColor = (priority) => {
         switch (priority.toLowerCase()) {
             case 'low':
-                return 'border-primary';
+                return 'primary';
             case 'medium':
-                return 'border-success';
+                return 'success';
             case 'high':
-                return 'border-danger';
+                return 'error';
             default:
-                return '';
+                return 'primary'; // Default color if priority doesn't match
         }
     };
 
     return (
         <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
-            <Card className={`mb-2 ${getPriorityClass(task.priority)}`}>
+            <Card className={`mb-1 border-${getPriorityColor(task.priority)}`}>
                 <CardBody>
                     <CardTitle>{task.title}</CardTitle>
-                    <CardText>Priority: {task.priority}</CardText>
+                    <LinearProgress  variant="bar"  color={getPriorityColor(task.priority)} />
                 </CardBody>
             </Card>
         </div>

@@ -17,8 +17,8 @@ const TaskColumn = ({ title, tasks, onDrop }) => {
 
     return (
         <div ref={drop} className="col-md-3 p-2">
-            <Card className={`p-2 ${isActive ? 'bg-light' : ''}`}>
-                <CardTitle tag="h5">{title}</CardTitle>
+            <Card className={`p-1 ${isActive ? 'bg-light' : ''}`}>
+                <CardTitle className={"text-center"} tag="h5">{title}</CardTitle>
                 <CardBody>
                     {tasks.map((task) => (
                         <TaskCard key={task._id} task={task} />
