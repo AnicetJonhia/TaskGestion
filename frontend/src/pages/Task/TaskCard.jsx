@@ -2,7 +2,11 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 import { Card, CardBody, CardTitle } from 'reactstrap';
 import LinearProgress from '@mui/material/LinearProgress';
-
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const TaskCard = ({ task }) => {
     const [{ isDragging }, drag] = useDrag({
@@ -26,12 +30,31 @@ const TaskCard = ({ task }) => {
         }
     };
 
+    const actions = [
+        { icon: <EditIcon />, name: 'Edit' },
+        { icon: <DeleteIcon />, name: 'Delete' }
+    ];
+
     return (
-        <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
+        <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1, position: 'relative' }}>
             <Card className={`mb-1 border-${getPriorityColor(task.priority)}`}>
                 <CardBody>
                     <CardTitle>{task.title}</CardTitle>
-                    <LinearProgress  variant="bar"  color={getPriorityColor(task.priority)} />
+                    <LinearProgress variant="bar" color={getPriorityColor(task.priority)} />
+                    <SpeedDial
+                        ariaLabel="Actions"
+                        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                        icon={<SpeedDialIcon />}
+                    >
+                        {actions.map((action) => (
+                            <SpeedDialAction
+                                key={action.name}
+                                icon={action.icon}
+                                tooltipTitle={action.name}
+                                onClick={() => handleActionClick(action.name)}
+                            />
+                        ))}
+                    </SpeedDial>
                 </CardBody>
             </Card>
         </div>
